@@ -1,5 +1,7 @@
 package org.hibernate.kmet.handlerequalstest;
 
+import static org.mockito.Mockito.mock;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
@@ -7,7 +9,6 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -16,8 +17,6 @@ import org.hibernate.engine.jdbc.internal.proxy.AbstractProxyHandler;
 import org.hibernate.engine.jdbc.internal.proxy.ProxyBuilder;
 import org.junit.Assert;
 import org.junit.Test;
-
-import static org.mockito.Mockito.*;
 
 public class HandlerEqualsTest {
 	
