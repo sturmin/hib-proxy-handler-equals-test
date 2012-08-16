@@ -53,6 +53,7 @@ public class HandlerEqualsTest {
 	
 	
 	
+	//ATTENTION: this test fails only when run on IBM JDK 
 	@Test
 	public void realisedButNotRemoved() throws Exception {
 		Statement baseStatemet = mock(Statement.class);
