@@ -1,14 +1,23 @@
 package org.hibernate.kmet.handlerequalstest;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
+import org.hibernate.engine.jdbc.internal.JdbcResourceRegistryImpl;
 import org.hibernate.engine.jdbc.internal.proxy.AbstractProxyHandler;
+import org.hibernate.engine.jdbc.internal.proxy.ProxyBuilder;
 import org.junit.Assert;
 import org.junit.Test;
 
+import static org.mockito.Mockito.*;
 
 public class HandlerEqualsTest {
 	
@@ -40,8 +49,27 @@ public class HandlerEqualsTest {
 		StubInterface proxy = proxyClass.getConstructor(InvocationHandler.class).newInstance(new ProxyHandler(1));
 		
 		Assert.assertTrue(proxy.equals(proxy));
-		
 	}
+	
+	
+	
+	@Test
+	public void realisedButNotRemoved() throws Exception {
+		Statement baseStatemet = mock(Statement.class);
+		Statement proxyedStatement = ProxyBuilder.buildImplicitStatement(baseStatemet, null, null);
+		
+		JdbcResourceRegistryImpl jdbcResourceRegistryImpl = new JdbcResourceRegistryImpl(null);
+		
+		jdbcResourceRegistryImpl.register(proxyedStatement);
+		jdbcResourceRegistryImpl.release(proxyedStatement);
+		Field xrefField = JdbcResourceRegistryImpl.class.getDeclaredField("xref");
+		xrefField.setAccessible(true);
+		
+		@SuppressWarnings("unchecked")
+		Map<Statement,Set<ResultSet>> xref = (Map<Statement, Set<ResultSet>>) xrefField.get(jdbcResourceRegistryImpl);
+		Assert.assertTrue(xref.isEmpty());
+	}
+	
 	
 	
 

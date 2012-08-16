@@ -10,5 +10,6 @@ repositories {
 dependencies {
 	compile "org.hibernate:hibernate-core:4.1.6.Final"
 	testCompile "junit:junit:4.9"
+	testCompile "org.mockito:mockito-all:1.9.0"
 }
 
