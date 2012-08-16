@@ -55,7 +55,7 @@ public class HandlerEqualsTest {
 	
 	//ATTENTION: this test fails only when run on IBM JDK 
 	@Test
-	public void realisedButNotRemoved() throws Exception {
+	public void releasedButNotRemoved() throws Exception {
 		Statement baseStatemet = mock(Statement.class);
 		Statement proxyedStatement = ProxyBuilder.buildImplicitStatement(baseStatemet, null, null);
 		
